@@ -9,12 +9,20 @@
 
   function RegisterController($location, $scope, Authentication) {
     var vm = this;
-    console.log(vm);
 
     vm.register = register;
 
     function register() {
       Authentication.register(vm.email, vm.password, vm.username);
+    }
+
+    activate();
+
+    function activate() {
+      // If the user is authenticated, no need/reason to register
+      if (Authentication.isAuthenticated()) {
+        $location.url('/');
+      }
     }
   }
 })();
